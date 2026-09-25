@@ -1,0 +1,16 @@
+{
+  "name": "gold-fx",
+  "version": "1.0.0",
+  "description": "Gold Fx - Gold & FX Trading Desk with real market data",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.0"
+  }
+}

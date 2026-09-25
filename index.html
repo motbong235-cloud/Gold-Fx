@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gold Fx — Gold & FX Trading Desk</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 40%, #eab308 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .card-glow {
+      box-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
+    }
+    .signal-card:hover {
+      transform: translateY(-2px);
+      transition: all 0.2s ease;
+    }
+  </style>
+  <script src="app.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen">
+
+  <!-- NAV -->
+  <nav class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center font-bold text-lg shadow-lg shadow-amber-500/30">G</div>
+        <span class="text-xl font-bold tracking-tight">Gold<span class="text-amber-400"> Fx</span></span>
+      </div>
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-400">
+        <a href="#features" class="hover:text-white transition">Features</a>
+        <a href="#how" class="hover:text-white transition">How it works</a>
+        <a href="#pricing" class="hover:text-white transition">Pricing</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="showLogin()" class="text-sm font-medium text-slate-300 hover:text-white px-4 py-2">Sign in</button>
+        <button onclick="showLogin()" class="bg-amber-600 hover:bg-amber-500 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition">Get Started</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-900/40 via-slate-950 to-slate-950"></div>
+    <div class="relative max-w-7xl mx-auto px-6 pt-24 pb-32 text-center">
+      <div class="inline-flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-full px-4 py-1.5 text-xs font-medium text-amber-300 mb-8">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        AI OFFICE · Gold & FX
+      </div>
+      <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight leading-tight mb-6">
+        Trade <span class="gradient-text">Gold & FX</span><br>with Clarity
+      </h1>
+      <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+        Workspace សម្រាប់ <strong class="text-amber-400/90">Gold (XAUUSD)</strong> និង FX — Bias, Structure, Setup និង Journal ក្នុងកន្លែងតែមួយ។
+      </p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button onclick="showLogin()" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-8 py-3.5 rounded-xl text-base transition shadow-lg shadow-amber-600/30">
+          បើក Workspace ឥឡូវ
+        </button>
+        <button class="border border-slate-700 hover:border-slate-500 text-slate-300 font-medium px-8 py-3.5 rounded-xl text-base transition">
+          មើល Demo
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+          <div class="text-2xl font-bold text-amber-400">XAUUSD</div>
+          <div class="text-xs text-slate-500 mt-1">Gold Focus</div>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+          <div class="text-2xl font-bold text-white">EURUSD</div>
+          <div class="text-xs text-slate-500 mt-1">Major FX</div>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+          <div class="text-2xl font-bold text-white">BTCUSD</div>
+          <div class="text-xs text-slate-500 mt-1">Crypto</div>
+        </div>
+        <div class="bg-slate-900/60 border border-slate-800 rounded-xl p-5">
+          <div class="text-2xl font-bold text-emerald-400">Live</div>
+          <div class="text-xs text-slate-500 mt-1">Market Data</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features" class="max-w-7xl mx-auto px-6 py-24">
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Bring market data into your AI office</h2>
+      <p class="text-slate-400 max-w-xl mx-auto">Signals · Chart · AI Analysis · MT5 Copy — ដូច BlueComp / signal office</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-amber-500/40 transition">
+        <div class="w-12 h-12 rounded-xl bg-amber-500/15 flex items-center justify-center mb-4">
+          <i class="fas fa-chart-area text-amber-400 text-xl"></i>
+        </div>
+        <h3 class="font-semibold mb-2">AI Chart · Indicators</h3>
+        <p class="text-sm text-slate-400">Live candles XAU / BTC / EUR + structure context</p>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-emerald-500/40 transition">
+        <div class="w-12 h-12 rounded-xl bg-emerald-500/15 flex items-center justify-center mb-4">
+          <i class="fas fa-bolt text-emerald-400 text-xl"></i>
+        </div>
+        <h3 class="font-semibold mb-2">Live Orders · Signals</h3>
+        <p class="text-sm text-slate-400">BUY/SELL cards with Entry, SL, TP — one-click Journal</p>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-purple-500/40 transition">
+        <div class="w-12 h-12 rounded-xl bg-purple-500/15 flex items-center justify-center mb-4">
+          <i class="fas fa-robot text-purple-400 text-xl"></i>
+        </div>
+        <h3 class="font-semibold mb-2">AI Analysis</h3>
+        <p class="text-sm text-slate-400">Bias, key levels, invalidation — decision support</p>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 hover:border-blue-500/40 transition">
+        <div class="w-12 h-12 rounded-xl bg-blue-500/15 flex items-center justify-center mb-4">
+          <i class="fas fa-link text-blue-400 text-xl"></i>
+        </div>
+        <h3 class="font-semibold mb-2">MT5 · Copy Trading</h3>
+        <p class="text-sm text-slate-400">Connect MetaTrader 5 for copy-ready workflow</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" class="bg-slate-900/50 border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-6 py-24">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">របៀបដំណើរការ</h2>
+        <p class="text-slate-400">បួនជំហានសាមញ្ញ ដើម្បីឈានទៅកាន់ការសម្រេចចិត្តដែលមាន Context</p>
+      </div>
+      <div class="grid md:grid-cols-4 gap-8">
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-full bg-amber-600 text-white font-bold text-xl flex items-center justify-center mx-auto mb-4">1</div>
+          <h4 class="font-semibold mb-2">Open Context</h4>
+          <p class="text-sm text-slate-400">មើល Higher TF Structure និង Key Levels</p>
+        </div>
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-full bg-amber-600 text-white font-bold text-xl flex items-center justify-center mx-auto mb-4">2</div>
+          <h4 class="font-semibold mb-2">Read Bias</h4>
+          <p class="text-sm text-slate-400">យល់ Daily/Weekly Bias + Confidence</p>
+        </div>
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-full bg-amber-600 text-white font-bold text-xl flex items-center justify-center mx-auto mb-4">3</div>
+          <h4 class="font-semibold mb-2">Forge Setup</h4>
+          <p class="text-sm text-slate-400">ជ្រើស Setup ដែលមាន Probability ខ្ពស់</p>
+        </div>
+        <div class="text-center">
+          <div class="w-14 h-14 rounded-full bg-amber-600 text-white font-bold text-xl flex items-center justify-center mx-auto mb-4">4</div>
+          <h4 class="font-semibold mb-2">Execute</h4>
+          <p class="text-sm text-slate-400">ចូលជាមួយ Risk និង Plan ច្បាស់</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="max-w-7xl mx-auto px-6 py-24 text-center">
+    <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to trade Gold & FX?</h2>
+    <p class="text-slate-400 mb-8 max-w-xl mx-auto">ចាប់ផ្តើម Workspace សម្រាប់ Gold និង FX — Chart Live, Journal និង Setup ក្នុងកន្លែងតែមួយ។</p>
+    <button onclick="showLogin()" class="bg-amber-600 hover:bg-amber-500 text-white font-semibold px-10 py-4 rounded-xl text-lg transition shadow-lg shadow-amber-600/30">
+      បង្កើត Workspace ឥឡូវ
+    </button>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 py-10">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center text-sm font-bold">D</div>
+        <span class="font-semibold">Gold Fx</span>
+      </div>
+      <p class="text-sm text-slate-500">© 2026 Gold Fx. Gold & FX. Clear Entries.</p>
+    </div>
+  </footer>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-8 relative">
+      <button onclick="hideLogin()" class="absolute top-4 right-4 text-slate-500 hover:text-white">
+        <i class="fas fa-times text-xl"></i>
+      </button>
+      
+      <div class="text-center mb-8">
+        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center font-bold text-xl mx-auto mb-4">G</div>
+        <h2 class="text-2xl font-bold">Welcome to Gold Fx</h2>
+        <p class="text-slate-400 text-sm mt-1">Continue to your AI trading office</p>
+      </div>
+
+      <div class="space-y-4">
+        <button class="w-full flex items-center justify-center gap-3 bg-white text-slate-900 font-medium py-3 rounded-xl hover:bg-slate-100 transition">
+          <i class="fab fa-google"></i>
+          Continue with Google
+        </button>
+        
+        <div class="flex items-center gap-3 text-slate-600 text-sm">
+          <div class="flex-1 h-px bg-slate-700"></div>
+          <span>OR</span>
+          <div class="flex-1 h-px bg-slate-700"></div>
+        </div>
+
+        <div>
+          <label class="block text-sm text-slate-400 mb-1.5">Email</label>
+          <input type="email" placeholder="you@example.com" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition">
+        </div>
+        <div>
+          <label class="block text-sm text-slate-400 mb-1.5">Password</label>
+          <input type="password" placeholder="••••••••" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-amber-500 transition">
+        </div>
+
+        <button onclick="enterDashboard()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-3.5 rounded-xl transition mt-2">
+          Sign In to Workspace
+        </button>
+      </div>
+
+      <p class="text-center text-sm text-slate-500 mt-6">
+        មិនទាន់មានគណនី? <a href="#" class="text-amber-400 hover:underline">Register</a>
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // If already logged in, go to dashboard
+    if (GFX.isLoggedIn()) {
+      // optional: auto redirect
+    }
+
+    function showLogin() {
+      document.getElementById('loginModal').classList.remove('hidden');
+      document.getElementById('loginModal').classList.add('flex');
+    }
+    function hideLogin() {
+      document.getElementById('loginModal').classList.add('hidden');
+      document.getElementById('loginModal').classList.remove('flex');
+    }
+    
+    function enterDashboard() {
+      const emailInput = document.querySelector('#loginModal input[type="email"]');
+      const email = emailInput ? emailInput.value.trim() : '';
+      
+      if (!email) {
+        // Allow demo login
+        GFX.login('demo@goldfx.app', 'Demo Trader');
+      } else {
+        GFX.login(email);
+      }
+      window.location.href = 'dashboard.html';
+    }
+    
+    // Google button also logs in as demo
+    document.querySelectorAll('#loginModal button').forEach(btn => {
+      if (btn.textContent.includes('Google')) {
+        btn.onclick = function() {
+          GFX.login('google.user@goldfx.app', 'Google User');
+          window.location.href = 'dashboard.html';
+        };
+      }
+    });
+    
+    // Close on outside click
+    document.getElementById('loginModal').addEventListener('click', function(e) {
+      if (e.target === this) hideLogin();
+    });
+  </script>
+</body>
+</html>

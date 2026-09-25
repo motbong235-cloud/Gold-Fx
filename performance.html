@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gold Fx — Performance</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="app.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    @media (max-width: 768px) {
+      aside { transform: translateX(-100%); transition: transform 0.3s; }
+      aside.mobile-open { transform: translateX(0); }
+      main { margin-left: 0 !important; }
+      .mobile-menu-btn { display: flex !important; }
+    }
+    .mobile-menu-btn { display: none; }
+
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside class="w-64 border-r border-slate-800 bg-slate-950 flex flex-col fixed h-full z-50">
+    <div class="p-5 border-b border-slate-800 flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center font-bold text-sm">G</div>
+      <span class="font-bold text-lg">Gold<span class="text-amber-400"> Fx</span></span>
+    </div>
+
+    <nav class="flex-1 p-4 space-y-1">
+      <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-th-large w-5 text-center"></i> Dashboard
+      </a>
+      <a href="dashboard.html#chart" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-chart-line w-5 text-center"></i> Context Map
+      </a>
+      <a href="dashboard.html#setups" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-bullseye w-5 text-center"></i> Active Setups
+      </a>
+      <a href="performance.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-amber-600/20 text-amber-300 font-medium text-sm">
+        <i class="fas fa-history w-5 text-center"></i> Performance
+      </a>
+      <a href="learning.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-book w-5 text-center"></i> Learning Vault
+      </a>
+      <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-cog w-5 text-center"></i> Settings
+      </a>
+</nav>
+
+    <div class="p-4 border-t border-slate-800">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center text-sm font-medium">U</div>
+        <div>
+          <div class="text-sm font-medium" data-user-name>Trader</div>
+          <div class="text-xs text-slate-500" data-user-plan>Free Plan</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 ml-64">
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-40 px-8 py-4 flex items-center justify-between">
+      <div>
+        <h1 class="text-xl font-semibold">Trade Journal</h1>
+        <p class="text-xs text-slate-500">Track every decision • Improve over time</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <select class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-sm text-slate-300 focus:outline-none">
+          <option>All Time</option>
+          <option>This Week</option>
+          <option>This Month</option>
+        </select>
+        <button onclick="exportTrades()" class="border border-slate-700 hover:border-slate-500 text-slate-300 text-sm font-medium px-3 py-1.5 rounded-lg transition flex items-center gap-2">
+          <i class="fas fa-download text-xs"></i> Export
+        </button>
+        <button onclick="showAddTrade()" class="bg-amber-600 hover:bg-amber-500 text-white text-sm font-medium px-4 py-1.5 rounded-lg transition flex items-center gap-2">
+          <i class="fas fa-plus text-xs"></i> Add Trade
+        </button>
+      </div>
+    </header>
+
+    <div class="p-8">
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="text-sm text-slate-400 mb-1">Total Trades</div>
+          <div class="text-3xl font-bold">47</div>
+          <div class="text-xs text-slate-500 mt-1">+7 this week</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="text-sm text-slate-400 mb-1">Win Rate</div>
+          <div class="text-3xl font-bold text-emerald-400">68.1%</div>
+          <div class="text-xs text-emerald-500/80 mt-1">↑ 3.2% vs last month</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="text-sm text-slate-400 mb-1">Average RR</div>
+          <div class="text-3xl font-bold">1.87</div>
+          <div class="text-xs text-slate-500 mt-1">Target ≥ 1.5</div>
+        </div>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="text-sm text-slate-400 mb-1">Net R</div>
+          <div class="text-3xl font-bold text-emerald-400">+42.6R</div>
+          <div class="text-xs text-emerald-500/80 mt-1">Best month +18.2R</div>
+        </div>
+      </div>
+
+      <!-- Equity Curve + Stats -->
+      <div class="grid lg:grid-cols-3 gap-6 mb-8">
+        <!-- Equity Curve -->
+        <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="font-semibold">Equity Curve (R-Multiple)</h2>
+            <span class="text-xs text-slate-500">Cumulative Performance</span>
+          </div>
+          <div id="equityChart" class="w-full h-72"></div>
+        </div>
+
+        <!-- Key Metrics -->
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+          <h2 class="font-semibold mb-5">Key Metrics</h2>
+          <div class="space-y-4 text-sm">
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Profit Factor</span>
+              <span class="font-medium text-emerald-400">2.14</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Max Drawdown</span>
+              <span class="font-medium text-red-400">-6.8R</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Avg Win</span>
+              <span class="font-medium">+2.1R</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Avg Loss</span>
+              <span class="font-medium text-red-400">-1.0R</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Best Trade</span>
+              <span class="font-medium text-emerald-400">+4.6R</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Worst Trade</span>
+              <span class="font-medium text-red-400">-1.8R</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-slate-400">Expectancy</span>
+              <span class="font-medium text-emerald-400">+0.91R</span>
+            </div>
+            <div class="pt-3 border-t border-slate-800 flex justify-between items-center">
+              <span class="text-slate-400">Sharpe (approx)</span>
+              <span class="font-medium">1.42</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trade History Table -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+        <div class="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
+          <h2 class="font-semibold">Trade History</h2>
+          <div class="flex gap-2 text-xs">
+            <button class="px-3 py-1.5 rounded-lg bg-slate-800 text-slate-300">All</button>
+            <button class="px-3 py-1.5 rounded-lg text-slate-500 hover:bg-slate-800">Wins</button>
+            <button class="px-3 py-1.5 rounded-lg text-slate-500 hover:bg-slate-800">Losses</button>
+          </div>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-sm">
+            <thead class="bg-slate-900/80 text-slate-400 text-xs uppercase">
+              <tr>
+                <th class="px-6 py-3 text-left">Date</th>
+                <th class="px-6 py-3 text-left">Symbol</th>
+                <th class="px-6 py-3 text-left">Direction</th>
+                <th class="px-6 py-3 text-left">Entry</th>
+                <th class="px-6 py-3 text-left">Exit</th>
+                <th class="px-6 py-3 text-left">RR</th>
+                <th class="px-6 py-3 text-left">Result</th>
+                <th class="px-6 py-3 text-left">Notes</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800">
+              <tr class="hover:bg-slate-800/40">
+                <td class="px-6 py-3.5 text-slate-300">25 Sep</td>
+                <td class="px-6 py-3.5 font-medium">XAUUSD</td>
+                <td class="px-6 py-3.5"><span class="text-emerald-400">LONG</span></td>
+                <td class="px-6 py-3.5">2648.50</td>
+                <td class="px-6 py-3.5">2661.20</td>
+                <td class="px-6 py-3.5 text-emerald-400 font-medium">+1.9R</td>
+                <td class="px-6 py-3.5"><span class="bg-emerald-500/15 text-emerald-400 text-xs px-2 py-0.5 rounded">Win</span></td>
+                <td class="px-6 py-3.5 text-slate-500">OB hold + momentum</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="px-6 py-3.5 text-slate-300">24 Sep</td>
+                <td class="px-6 py-3.5 font-medium">BTCUSD</td>
+                <td class="px-6 py-3.5"><span class="text-red-400">SHORT</span></td>
+                <td class="px-6 py-3.5">64820</td>
+                <td class="px-6 py-3.5">64110</td>
+                <td class="px-6 py-3.5 text-emerald-400 font-medium">+2.3R</td>
+                <td class="px-6 py-3.5"><span class="bg-emerald-500/15 text-emerald-400 text-xs px-2 py-0.5 rounded">Win</span></td>
+                <td class="px-6 py-3.5 text-slate-500">Rejection at resistance</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="px-6 py-3.5 text-slate-300">24 Sep</td>
+                <td class="px-6 py-3.5 font-medium">XAUUSD</td>
+                <td class="px-6 py-3.5"><span class="text-emerald-400">LONG</span></td>
+                <td class="px-6 py-3.5">2639.80</td>
+                <td class="px-6 py-3.5">2632.40</td>
+                <td class="px-6 py-3.5 text-red-400 font-medium">-1.0R</td>
+                <td class="px-6 py-3.5"><span class="bg-red-500/15 text-red-400 text-xs px-2 py-0.5 rounded">Loss</span></td>
+                <td class="px-6 py-3.5 text-slate-500">News spike against</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="px-6 py-3.5 text-slate-300">23 Sep</td>
+                <td class="px-6 py-3.5 font-medium">XAUUSD</td>
+                <td class="px-6 py-3.5"><span class="text-emerald-400">LONG</span></td>
+                <td class="px-6 py-3.5">2621.30</td>
+                <td class="px-6 py-3.5">2645.60</td>
+                <td class="px-6 py-3.5 text-emerald-400 font-medium">+3.1R</td>
+                <td class="px-6 py-3.5"><span class="bg-emerald-500/15 text-emerald-400 text-xs px-2 py-0.5 rounded">Win</span></td>
+                <td class="px-6 py-3.5 text-slate-500">Strong London open</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="px-6 py-3.5 text-slate-300">22 Sep</td>
+                <td class="px-6 py-3.5 font-medium">EURUSD</td>
+                <td class="px-6 py-3.5"><span class="text-red-400">SHORT</span></td>
+                <td class="px-6 py-3.5">1.08720</td>
+                <td class="px-6 py-3.5">1.08410</td>
+                <td class="px-6 py-3.5 text-emerald-400 font-medium">+1.6R</td>
+                <td class="px-6 py-3.5"><span class="bg-emerald-500/15 text-emerald-400 text-xs px-2 py-0.5 rounded">Win</span></td>
+                <td class="px-6 py-3.5 text-slate-500">Clean break + retest</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="px-6 py-3.5 text-slate-300">22 Sep</td>
+                <td class="px-6 py-3.5 font-medium">BTCUSD</td>
+                <td class="px-6 py-3.5"><span class="text-emerald-400">LONG</span></td>
+                <td class="px-6 py-3.5">63580</td>
+                <td class="px-6 py-3.5">63120</td>
+                <td class="px-6 py-3.5 text-red-400 font-medium">-1.0R</td>
+                <td class="px-6 py-3.5"><span class="bg-red-500/15 text-red-400 text-xs px-2 py-0.5 rounded">Loss</span></td>
+                <td class="px-6 py-3.5 text-slate-500">False breakout</td>
+              </tr>
+              <tr class="hover:bg-slate-800/40">
+                <td class="px-6 py-3.5 text-slate-300">21 Sep</td>
+                <td class="px-6 py-3.5 font-medium">XAUUSD</td>
+                <td class="px-6 py-3.5"><span class="text-emerald-400">LONG</span></td>
+                <td class="px-6 py-3.5">2612.40</td>
+                <td class="px-6 py-3.5">2638.90</td>
+                <td class="px-6 py-3.5 text-emerald-400 font-medium">+2.8R</td>
+                <td class="px-6 py-3.5"><span class="bg-emerald-500/15 text-emerald-400 text-xs px-2 py-0.5 rounded">Win</span></td>
+                <td class="px-6 py-3.5 text-slate-500">Weekly demand zone</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  
+  <!-- Add Trade Modal -->
+  <div id="addTradeModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-6 relative">
+      <button onclick="hideAddTrade()" class="absolute top-4 right-4 text-slate-500 hover:text-white">
+        <i class="fas fa-times"></i>
+      </button>
+      <h2 class="text-xl font-bold mb-6">Add New Trade</h2>
+      
+      <div class="space-y-4">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Symbol</label>
+            <select id="tSymbol" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm">
+              <option>XAUUSD</option>
+              <option>BTCUSD</option>
+              <option>EURUSD</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Direction</label>
+            <select id="tDirection" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm">
+              <option value="LONG">LONG</option>
+              <option value="SHORT">SHORT</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Entry</label>
+            <input id="tEntry" type="text" placeholder="2648.50" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Exit</label>
+            <input id="tExit" type="text" placeholder="2661.20" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">R-Multiple (RR)</label>
+            <input id="tRR" type="number" step="0.1" placeholder="1.9 or -1.0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Date</label>
+            <input id="tDate" type="date" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+          </div>
+        </div>
+        
+        <div>
+          <label class="block text-xs text-slate-400 mb-1">Notes</label>
+          <input id="tNotes" type="text" placeholder="Optional notes..." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+        </div>
+        
+        <button onclick="submitTrade()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-3 rounded-xl transition mt-2">
+          Save Trade
+        </button>
+      </div>
+    </div>
+  </div>
+
+  </main>
+
+  
+  <script>
+    if (!GFX.requireAuth()) {}
+    GFX.updateUserUI();
+    
+    document.querySelectorAll('[data-user-name]').forEach(el => {
+      el.parentElement.style.cursor = 'pointer';
+      el.parentElement.title = 'Click to logout';
+      el.parentElement.onclick = () => { if (confirm('Logout?')) GFX.logout(); };
+    });
+
+    // Seed demo trades if empty
+    if (GFX.getTrades().length === 0) {
+      const demo = [
+        { date: '2026-09-25', symbol: 'XAUUSD', direction: 'LONG', entry: '2648.50', exit: '2661.20', rr: 1.9, result: 'Win', notes: 'OB hold + momentum' },
+        { date: '2026-09-24', symbol: 'BTCUSD', direction: 'SHORT', entry: '64820', exit: '64110', rr: 2.3, result: 'Win', notes: 'Rejection at resistance' },
+        { date: '2026-09-24', symbol: 'XAUUSD', direction: 'LONG', entry: '2639.80', exit: '2632.40', rr: -1.0, result: 'Loss', notes: 'News spike against' },
+        { date: '2026-09-23', symbol: 'XAUUSD', direction: 'LONG', entry: '2621.30', exit: '2645.60', rr: 3.1, result: 'Win', notes: 'Strong London open' },
+        { date: '2026-09-22', symbol: 'EURUSD', direction: 'SHORT', entry: '1.08720', exit: '1.08410', rr: 1.6, result: 'Win', notes: 'Clean break + retest' },
+      ];
+      demo.forEach(t => GFX.saveTrade(t));
+    }
+
+
+    let equityChartInstance = null;
+    let areaSeriesInstance = null;
+
+    
+    function exportTrades() {
+      const trades = GFX.getTrades();
+      if (trades.length === 0) {
+        alert('No trades to export');
+        return;
+      }
+      const headers = ['Date','Symbol','Direction','Entry','Exit','RR','Result','Notes'];
+      const rows = trades.map(t => [
+        t.date || (t.createdAt||'').slice(0,10),
+        t.symbol, t.direction, t.entry, t.exit, t.rr, t.result, (t.notes||'').replace(/,/g,';')
+      ]);
+      const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `goldfx-trades-${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function showAddTrade() {
+      document.getElementById('addTradeModal').classList.remove('hidden');
+      document.getElementById('addTradeModal').classList.add('flex');
+      const today = new Date().toISOString().slice(0,10);
+      document.getElementById('tDate').value = today;
+    }
+    function hideAddTrade() {
+      document.getElementById('addTradeModal').classList.add('hidden');
+      document.getElementById('addTradeModal').classList.remove('flex');
+    }
+    
+    function submitTrade() {
+      const symbol = document.getElementById('tSymbol').value;
+      const direction = document.getElementById('tDirection').value;
+      const entry = document.getElementById('tEntry').value.trim();
+      const exitP = document.getElementById('tExit').value.trim();
+      const rr = parseFloat(document.getElementById('tRR').value);
+      const date = document.getElementById('tDate').value;
+      const notes = document.getElementById('tNotes').value.trim();
+      
+      if (!entry || !exitP || isNaN(rr)) {
+        alert('Please fill Entry, Exit and RR');
+        return;
+      }
+      
+      GFX.saveTrade({
+        date, symbol, direction, entry, exit: exitP,
+        rr: rr,
+        result: rr > 0 ? 'Win' : 'Loss',
+        notes
+      });
+      
+      hideAddTrade();
+      document.getElementById('tEntry').value = '';
+      document.getElementById('tExit').value = '';
+      document.getElementById('tRR').value = '';
+      document.getElementById('tNotes').value = '';
+      
+      renderStats();
+      renderTable();
+      updateEquityChart();
+    }
+    
+    function deleteTrade(id) {
+      if (!confirm('Delete this trade?')) return;
+      GFX.deleteTrade(id);
+      renderStats();
+      renderTable();
+      updateEquityChart();
+    }
+    
+    function updateEquityChart() {
+      if (!areaSeriesInstance) return;
+      const trades = GFX.getTrades().slice().reverse();
+      let cumulative = 0;
+      const equityData = [{ time: '2026-08-01', value: 0 }];
+      const used = new Set(['2026-08-01']);
+      trades.forEach((t, i) => {
+        cumulative += parseFloat(t.rr) || 0;
+        let d = t.date || (t.createdAt ? t.createdAt.slice(0,10) : null) || `2026-09-${String(10+i).padStart(2,'0')}`;
+        // ensure unique time for chart
+        let unique = d;
+        let c = 1;
+        while (used.has(unique)) {
+          unique = d + '-' + c;
+          c++;
+        }
+        used.add(unique);
+        equityData.push({ time: d, value: +cumulative.toFixed(2) });
+      });
+      try {
+        // LightweightCharts needs unique sequential times - use index based if needed
+        const clean = equityData.map((p, idx) => ({
+          time: idx === 0 ? '2026-08-01' : p.time,
+          value: p.value
+        }));
+        // Deduplicate by keeping last value per time
+        const map = {};
+        clean.forEach(p => { map[p.time] = p.value; });
+        const finalData = Object.keys(map).sort().map(k => ({ time: k, value: map[k] }));
+        areaSeriesInstance.setData(finalData.length ? finalData : [{ time: '2026-08-01', value: 0 }]);
+        equityChartInstance.timeScale().fitContent();
+      } catch(e) { console.warn('Equity update error', e); }
+    }
+
+
+    function renderStats() {
+      const s = GFX.getStats();
+      const cards = document.querySelectorAll('.grid.grid-cols-2.md\:grid-cols-4 > div');
+      if (cards.length >= 4) {
+        cards[0].querySelector('.text-3xl').textContent = s.total;
+        cards[1].querySelector('.text-3xl').textContent = s.winRate + '%';
+        cards[2].querySelector('.text-3xl').textContent = s.avgRR;
+        cards[3].querySelector('.text-3xl').textContent = (s.netR >= 0 ? '+' : '') + s.netR + 'R';
+      }
+    }
+
+    function renderTable() {
+      const trades = GFX.getTrades();
+      const tbody = document.querySelector('table tbody');
+      if (!tbody) return;
+      
+      if (trades.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="px-6 py-12 text-center text-slate-500">
+          No trades yet. Click <strong>Add Trade</strong> to start journaling.
+        </td></tr>`;
+        return;
+      }
+      
+      tbody.innerHTML = trades.map(t => {
+        const isWin = parseFloat(t.rr) > 0;
+        const rrVal = parseFloat(t.rr);
+        return `
+          <tr class="hover:bg-slate-800/40">
+            <td class="px-6 py-3.5 text-slate-300">${t.date || (t.createdAt ? t.createdAt.slice(0,10) : '-')}</td>
+            <td class="px-6 py-3.5 font-medium">${t.symbol}</td>
+            <td class="px-6 py-3.5"><span class="${t.direction === 'LONG' ? 'text-emerald-400' : 'text-red-400'}">${t.direction}</span></td>
+            <td class="px-6 py-3.5">${t.entry}</td>
+            <td class="px-6 py-3.5">${t.exit}</td>
+            <td class="px-6 py-3.5 ${isWin ? 'text-emerald-400' : 'text-red-400'} font-medium">${isWin ? '+' : ''}${t.rr}R</td>
+            <td class="px-6 py-3.5"><span class="${isWin ? 'bg-emerald-500/15 text-emerald-400' : 'bg-red-500/15 text-red-400'} text-xs px-2 py-0.5 rounded">${t.result}</span></td>
+            <td class="px-6 py-3.5 text-slate-500 flex items-center gap-3">
+              <span>${t.notes || ''}</span>
+              <button onclick="deleteTrade('${t.id}')" class="text-slate-600 hover:text-red-400 transition" title="Delete">
+                <i class="fas fa-trash text-xs"></i>
+              </button>
+            </td>
+          </tr>`;
+      }).join('');
+    }
+
+    // Equity chart
+    const equityContainer = document.getElementById('equityChart');
+    if (equityContainer && typeof LightweightCharts !== 'undefined') {
+      equityChartInstance = LightweightCharts.createChart(equityContainer, {
+        layout: { background: { type: 'solid', color: '#0f172a' }, textColor: '#94a3b8' },
+        grid: { vertLines: { color: '#1e293b' }, horzLines: { color: '#1e293b' } },
+        rightPriceScale: { borderColor: '#334155' },
+        timeScale: { borderColor: '#334155' },
+        width: equityContainer.clientWidth,
+        height: 288,
+      });
+      areaSeriesInstance = equityChartInstance.addAreaSeries({
+        lineColor: '#fbbf24',
+        topColor: 'rgba(251, 191, 36, 0.4)',
+        bottomColor: 'rgba(251, 191, 36, 0.02)',
+        lineWidth: 2,
+      });
+      
+      updateEquityChart();
+      
+      window.addEventListener('resize', () => {
+        if (equityChartInstance) equityChartInstance.applyOptions({ width: equityContainer.clientWidth });
+      });
+    }
+
+    renderStats();
+    renderTable();
+    
+    document.getElementById('addTradeModal')?.addEventListener('click', function(e) {
+      if (e.target === this) hideAddTrade();
+    });
+  </script>
+
+<script>
+    function toggleMobileMenu() {
+      document.querySelector('aside').classList.toggle('mobile-open');
+    }
+</script>
+</body>
+</html>

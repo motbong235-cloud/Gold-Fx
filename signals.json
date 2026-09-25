@@ -1,0 +1,41 @@
+[
+  {
+    "id": "s1",
+    "symbol": "XAUUSD",
+    "direction": "BUY",
+    "entry": "2652.40",
+    "sl": "2641.00",
+    "tp": "2675.00",
+    "rr": 2.0,
+    "confidence": 78,
+    "status": "active",
+    "notes": "OB hold + liquidity sweep",
+    "createdAt": "2026-09-25T10:00:00.000Z"
+  },
+  {
+    "id": "s2",
+    "symbol": "BTCUSD",
+    "direction": "SELL",
+    "entry": "94850",
+    "sl": "95500",
+    "tp": "93200",
+    "rr": 2.5,
+    "confidence": 71,
+    "status": "active",
+    "notes": "Rejection at resistance",
+    "createdAt": "2026-09-25T09:30:00.000Z"
+  },
+  {
+    "id": "s3",
+    "symbol": "EURUSD",
+    "direction": "BUY",
+    "entry": "1.08420",
+    "sl": "1.08150",
+    "tp": "1.08950",
+    "rr": 2.0,
+    "confidence": 64,
+    "status": "closed",
+    "notes": "Closed +1.6R",
+    "createdAt": "2026-09-25T08:00:00.000Z"
+  }
+]

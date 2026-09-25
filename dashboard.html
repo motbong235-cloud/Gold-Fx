@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gold Fx — AI Office</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js"></script>
+  <script src="app.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; }
+    @media (max-width: 768px) {
+      aside { transform: translateX(-100%); transition: transform 0.3s; }
+      aside.mobile-open { transform: translateX(0); }
+      main { margin-left: 0 !important; }
+      .mobile-menu-btn { display: flex !important; }
+    }
+    .mobile-menu-btn { display: none; }
+    .tab-btn.active { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+
+  <button onclick="toggleMobileMenu()" class="mobile-menu-btn fixed top-4 left-4 z-50 w-10 h-10 bg-slate-800 border border-slate-700 rounded-lg items-center justify-center text-white">
+    <i class="fas fa-bars"></i>
+  </button>
+
+  <!-- SIDEBAR — like BlueComp AI Office -->
+  <aside class="w-64 border-r border-slate-800 bg-slate-950 flex flex-col fixed h-full z-50">
+    <div class="p-5 border-b border-slate-800 flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center font-bold text-sm shadow-lg shadow-amber-500/20">G</div>
+      <div>
+        <span class="font-bold text-lg">Gold<span class="text-amber-400"> Fx</span></span>
+        <div class="text-[10px] text-slate-500 uppercase tracking-wider">AI Office</div>
+      </div>
+    </div>
+
+    <nav class="flex-1 p-4 space-y-1">
+      <p class="text-[10px] uppercase text-slate-600 font-semibold px-3 mb-2">Workspace</p>
+      <a href="#panel-signals" onclick="showPanel('signals')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-amber-600/20 text-amber-300 font-medium text-sm">
+        <i class="fas fa-bolt w-5 text-center"></i> Live Signals
+      </a>
+      <a href="#panel-chart" onclick="showPanel('chart')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-chart-area w-5 text-center"></i> AI Chart
+      </a>
+      <a href="#panel-ai" onclick="showPanel('ai')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-robot w-5 text-center"></i> AI Analysis
+      </a>
+      <a href="#panel-mt5" onclick="showPanel('mt5')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-link w-5 text-center"></i> MT5 · Copy
+      </a>
+      <p class="text-[10px] uppercase text-slate-600 font-semibold px-3 mb-2 mt-6">Tools</p>
+      <a href="performance.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-history w-5 text-center"></i> Performance
+      </a>
+      <a href="learning.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-book w-5 text-center"></i> Learning Vault
+      </a>
+      <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-cog w-5 text-center"></i> Settings
+      </a>
+      <a href="admin.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-user-shield w-5 text-center"></i> Admin Signals
+      </a>
+    </nav>
+
+    <div class="p-4 border-t border-slate-800">
+      <div class="flex items-center gap-3 cursor-pointer" title="Click to logout" onclick="if(confirm('Logout?')) GFX.logout()">
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center text-sm font-medium">U</div>
+        <div>
+          <div class="text-sm font-medium" data-user-name>Trader</div>
+          <div class="text-xs text-slate-500" data-user-plan>Free Plan</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main class="flex-1 ml-64">
+    <header class="border-b border-slate-800 bg-slate-950/90 backdrop-blur sticky top-0 z-40 px-6 py-3 flex items-center justify-between">
+      <div>
+        <h1 class="text-lg font-semibold" id="pageTitle">Live Signals</h1>
+        <p class="text-xs text-slate-500">Gold Fx AI Office · Secure Session</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-300">Market Live</span>
+        </div>
+        <select id="symbolSelect" class="bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-sm text-slate-300">
+          <option value="XAUUSD">XAUUSD</option>
+          <option value="BTCUSD">BTCUSD</option>
+          <option value="EURUSD">EURUSD</option>
+        </select>
+      </div>
+    </header>
+
+    <div class="p-6">
+
+      <!-- ========== LIVE SIGNALS ========== -->
+      <div id="panel-signals" class="panel">
+        <div class="flex items-center justify-between mb-5 flex-wrap gap-3">
+          <div>
+            <h2 class="font-semibold text-lg">Live Orders · Signals</h2>
+            <p class="text-xs text-slate-500">Real feed · Post & take signals</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <span id="activeCount" class="text-xs bg-emerald-500/15 text-emerald-400 px-2.5 py-1 rounded-full">0 Active</span>
+            <button onclick="showPostSignal()" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition">
+              <i class="fas fa-plus mr-1"></i> Post Signal
+            </button>
+          </div>
+        </div>
+
+        <div id="signalsGrid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-4 mb-8">
+          <!-- rendered by JS -->
+        </div>
+
+        <!-- Post Signal Modal -->
+        <div id="postSignalModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+          <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-6 relative">
+            <button onclick="hidePostSignal()" class="absolute top-4 right-4 text-slate-500 hover:text-white"><i class="fas fa-times"></i></button>
+            <h2 class="text-xl font-bold mb-5">Post New Signal</h2>
+            <div class="space-y-3">
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="text-xs text-slate-400">Symbol</label>
+                  <select id="sigSymbol" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm mt-1">
+                    <option>XAUUSD</option><option>BTCUSD</option><option>EURUSD</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-xs text-slate-400">Direction</label>
+                  <select id="sigDir" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm mt-1">
+                    <option value="BUY">BUY</option><option value="SELL">SELL</option>
+                  </select>
+                </div>
+              </div>
+              <div class="grid grid-cols-3 gap-2">
+                <div><label class="text-xs text-slate-400">Entry</label><input id="sigEntry" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-2 text-sm mt-1" placeholder="2650"></div>
+                <div><label class="text-xs text-slate-400">SL</label><input id="sigSL" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-2 text-sm mt-1" placeholder="2640"></div>
+                <div><label class="text-xs text-slate-400">TP</label><input id="sigTP" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-2 py-2 text-sm mt-1" placeholder="2675"></div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div><label class="text-xs text-slate-400">RR</label><input id="sigRR" type="number" step="0.1" value="2" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm mt-1"></div>
+                <div><label class="text-xs text-slate-400">Confidence %</label><input id="sigConf" type="number" value="70" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm mt-1"></div>
+              </div>
+              <div><label class="text-xs text-slate-400">Notes</label><input id="sigNotes" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm mt-1" placeholder="Optional"></div>
+              <button onclick="submitSignal()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-2.5 rounded-xl mt-2">Publish Signal</button>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Bias strip -->
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center"><i class="fas fa-arrow-trend-up text-emerald-400"></i></div>
+            <div>
+              <div class="text-xs text-slate-500">Daily Bias · XAU</div>
+              <div class="font-semibold text-emerald-400">Bullish 72%</div>
+            </div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center"><i class="fas fa-calendar-week text-emerald-400"></i></div>
+            <div>
+              <div class="text-xs text-slate-500">Weekly Bias · XAU</div>
+              <div class="font-semibold text-emerald-400">Bullish 65%</div>
+            </div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center"><i class="fas fa-newspaper text-amber-400"></i></div>
+            <div>
+              <div class="text-xs text-slate-500">News Impact</div>
+              <div class="font-semibold text-amber-400">Medium · Next 4h</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== AI CHART ========== -->
+      <div id="panel-chart" class="panel hidden">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+          <div class="px-5 py-3 border-b border-slate-800 flex items-center justify-between flex-wrap gap-2">
+            <div class="flex items-center gap-3">
+              <span class="font-semibold" id="chartSymbol">XAUUSD · Loading...</span>
+              <span class="text-xs text-slate-500" id="contextSymbol">XAUUSD</span>
+            </div>
+            <div class="flex gap-1">
+              <button class="tf-btn text-xs px-2.5 py-1 rounded bg-amber-600/30 text-amber-300">15m</button>
+              <button class="tf-btn text-xs px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">1H</button>
+              <button class="tf-btn text-xs px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">4H</button>
+              <button class="tf-btn text-xs px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">1D</button>
+            </div>
+          </div>
+          <div id="tvchart" class="w-full" style="height:420px"></div>
+          <div class="px-5 py-3 border-t border-slate-800 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div><span class="text-slate-500">Indicators</span><div class="text-slate-300 mt-0.5">Structure · OB · FVG</div></div>
+            <div><span class="text-slate-500">Session</span><div class="text-slate-300 mt-0.5">London / NY overlap</div></div>
+            <div><span class="text-slate-500">Source</span><div class="text-amber-400 mt-0.5">Live Proxy</div></div>
+            <div><span class="text-slate-500">Your Stats</span><div class="text-slate-300 mt-0.5" id="statLine">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== AI ANALYSIS ========== -->
+      <div id="panel-ai" class="panel hidden">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h2 class="font-semibold text-lg">AI Analysis</h2>
+            <p class="text-xs text-slate-500">Context-first reasoning · Gold & FX</p>
+          </div>
+        </div>
+        <div class="grid lg:grid-cols-2 gap-5">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div class="flex items-center gap-2 mb-4">
+              <i class="fas fa-brain text-amber-400"></i>
+              <h3 class="font-semibold">Market Structure · XAUUSD</h3>
+            </div>
+            <p class="text-sm text-slate-300 leading-relaxed mb-4">
+              Higher timeframe remains bullish. Price holds above key demand 2640–2645. Liquidity was swept below Asian low; reaction suggests continuation bias as long as 2635 is not broken on close.
+            </p>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between py-2 border-b border-slate-800"><span class="text-slate-500">HTF Bias</span><span class="text-emerald-400">Bullish</span></div>
+              <div class="flex justify-between py-2 border-b border-slate-800"><span class="text-slate-500">Key Support</span><span>2640 / 2635</span></div>
+              <div class="flex justify-between py-2 border-b border-slate-800"><span class="text-slate-500">Key Resistance</span><span>2668 / 2680</span></div>
+              <div class="flex justify-between py-2"><span class="text-slate-500">Invalidation</span><span class="text-red-400">Daily close &lt; 2635</span></div>
+            </div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
+            <div class="flex items-center gap-2 mb-4">
+              <i class="fas fa-lightbulb text-amber-400"></i>
+              <h3 class="font-semibold">Setup Quality Notes</h3>
+            </div>
+            <ul class="space-y-3 text-sm text-slate-300">
+              <li class="flex gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> Order block aligned with HTF demand</li>
+              <li class="flex gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> Clear RR ≥ 1:2 available</li>
+              <li class="flex gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> No high-impact news in next 2 hours</li>
+              <li class="flex gap-2"><i class="fas fa-exclamation text-amber-400 mt-1 text-xs"></i> Watch spread during London open</li>
+            </ul>
+            <div class="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200/90">
+              AI summary is decision support only — always confirm structure and risk before entry.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== MT5 COPY ========== -->
+      <div id="panel-mt5" class="panel hidden">
+        <div class="max-w-2xl">
+          <h2 class="font-semibold text-lg mb-1">MT5 · Copy Trading</h2>
+          <p class="text-xs text-slate-500 mb-6">Connect MetaTrader 5 for live orders & copy (like BlueComp)</p>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-5">
+            <div class="flex items-center gap-4 mb-6">
+              <div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center">
+                <i class="fas fa-server text-2xl text-amber-400"></i>
+              </div>
+              <div>
+                <div class="font-semibold">MT5 Account Link</div>
+                <div class="text-xs text-slate-500">Investor or trading password · Read / Copy mode</div>
+              </div>
+            </div>
+            <div class="space-y-4">
+              <div>
+                <label class="block text-xs text-slate-400 mb-1.5">Server</label>
+                <input type="text" placeholder="e.g. ICMarkets-Demo" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs text-slate-400 mb-1.5">Login</label>
+                  <input type="text" placeholder="Account number" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div>
+                  <label class="block text-xs text-slate-400 mb-1.5">Password</label>
+                  <input type="password" placeholder="Investor password" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                </div>
+              </div>
+              <button onclick="alert('MT5 bridge requires VPS + broker API. UI ready — backend integration comes next.')" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-3 rounded-xl transition">
+                Connect MT5
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5">
+            <div class="text-sm font-medium mb-3">Copy Status</div>
+            <div class="flex items-center justify-between text-sm py-2 border-b border-slate-800">
+              <span class="text-slate-400">Connection</span>
+              <span class="text-slate-500">Not connected</span>
+            </div>
+            <div class="flex items-center justify-between text-sm py-2 border-b border-slate-800">
+              <span class="text-slate-400">Mode</span>
+              <span class="text-slate-500">—</span>
+            </div>
+            <div class="flex items-center justify-between text-sm py-2">
+              <span class="text-slate-400">Last sync</span>
+              <span class="text-slate-500">—</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    if (!GFX.requireAuth()) {}
+    GFX.updateUserUI();
+
+    const titles = { signals: 'Live Signals', chart: 'AI Chart', ai: 'AI Analysis', mt5: 'MT5 · Copy Trading' };
+
+    function showPanel(name) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
+      const el = document.getElementById('panel-' + name);
+      if (el) el.classList.remove('hidden');
+      document.getElementById('pageTitle').textContent = titles[name] || name;
+      document.querySelectorAll('.nav-item').forEach(a => {
+        a.classList.remove('bg-amber-600/20', 'text-amber-300', 'font-medium');
+        a.classList.add('text-slate-400');
+      });
+      const active = document.querySelector(`a[href="#panel-${name}"]`);
+      if (active) {
+        active.classList.add('bg-amber-600/20', 'text-amber-300', 'font-medium');
+        active.classList.remove('text-slate-400');
+      }
+      if (name === 'chart' && window._chartReady) {
+        setTimeout(() => window.dispatchEvent(new Event('resize')), 50);
+      }
+    }
+
+    
+    GFX.seedSignalsIfEmpty();
+
+    function timeAgo(iso) {
+      const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+      if (m < 1) return 'just now';
+      if (m < 60) return m + 'm ago';
+      return Math.floor(m/60) + 'h ago';
+    }
+
+    function renderSignals() {
+      const list = GFX.getSignals();
+      const active = list.filter(s => s.status === 'active').length;
+      document.getElementById('activeCount').textContent = active + ' Active';
+      const grid = document.getElementById('signalsGrid');
+      if (!list.length) {
+        grid.innerHTML = '<div class="col-span-full text-center text-slate-500 py-12">No signals yet. Click <strong>Post Signal</strong>.</div>';
+        return;
+      }
+      grid.innerHTML = list.map(s => {
+        const isBuy = s.direction === 'BUY';
+        const isActive = s.status === 'active';
+        const border = isActive ? (isBuy ? 'border-emerald-500/30' : 'border-red-500/30') : 'border-slate-700';
+        const dirCls = isBuy ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400';
+        const dir = s.direction === 'BUY' ? 'LONG' : 'SHORT';
+        let actions = '';
+        if (isActive) {
+          actions = `<div class="flex gap-2">
+            <button onclick="takeSetup('${s.symbol}','${dir}','${s.entry}','${s.tp}',${s.rr})" class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium py-2 rounded-xl">Take → Journal</button>
+            <button onclick="closeSig('${s.id}')" class="px-3 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm rounded-xl border border-slate-700" title="Close">Close</button>
+          </div>`;
+        } else {
+          actions = `<button disabled class="w-full bg-slate-800/50 text-slate-500 text-sm py-2 rounded-xl cursor-not-allowed">Closed ${s.resultR != null ? ((s.resultR>=0?'+':'')+s.resultR+'R') : ''}</button>`;
+        }
+        return `<div class="bg-slate-900 border ${border} rounded-2xl p-5">
+          <div class="flex justify-between items-start mb-3">
+            <div><span class="text-xs ${dirCls} px-2 py-0.5 rounded font-medium">${s.direction}</span>
+            <span class="text-sm font-bold ml-2">${s.symbol}</span></div>
+            <span class="text-[10px] text-slate-500">${timeAgo(s.createdAt)}</span>
+          </div>
+          <div class="grid grid-cols-3 gap-2 text-xs mb-4">
+            <div><div class="text-slate-500">Entry</div><div class="font-semibold">${s.entry}</div></div>
+            <div><div class="text-slate-500">SL</div><div class="font-semibold text-red-400">${s.sl}</div></div>
+            <div><div class="text-slate-500">TP</div><div class="font-semibold text-emerald-400">${s.tp}</div></div>
+          </div>
+          <div class="flex justify-between text-xs mb-3">
+            <span class="text-slate-500">RR 1:${s.rr} · ${s.confidence || 70}%</span>
+            <span class="${isActive ? 'text-emerald-400' : 'text-slate-400'}">${isActive ? 'Active' : 'Closed'}</span>
+          </div>
+          ${s.notes ? '<p class="text-xs text-slate-500 mb-3">'+s.notes+'</p>' : ''}
+          ${actions}
+        </div>`;
+      }).join('');
+    }
+
+    function showPostSignal() {
+      document.getElementById('postSignalModal').classList.remove('hidden');
+      document.getElementById('postSignalModal').classList.add('flex');
+    }
+    function hidePostSignal() {
+      document.getElementById('postSignalModal').classList.add('hidden');
+      document.getElementById('postSignalModal').classList.remove('flex');
+    }
+    async function submitSignal() {
+      const entry = document.getElementById('sigEntry').value.trim();
+      const sl = document.getElementById('sigSL').value.trim();
+      const tp = document.getElementById('sigTP').value.trim();
+      if (!entry || !sl || !tp) { alert('Fill Entry, SL, TP'); return; }
+      const body = {
+        symbol: document.getElementById('sigSymbol').value,
+        direction: document.getElementById('sigDir').value,
+        entry, sl, tp,
+        rr: parseFloat(document.getElementById('sigRR').value) || 2,
+        confidence: parseInt(document.getElementById('sigConf').value) || 70,
+        notes: document.getElementById('sigNotes').value.trim(),
+        status: 'active'
+      };
+      let ok = false;
+      try {
+        const res = await fetch('/api/signals', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        ok = res.ok;
+      } catch (e) {}
+      if (!ok && typeof GFX.saveSignal === 'function') {
+        GFX.saveSignal(body);
+      }
+      hidePostSignal();
+      ['sigEntry','sigSL','sigTP','sigNotes'].forEach(id => document.getElementById(id).value = '');
+      await loadSignals();
+    }
+    function closeSig(id) {
+      const r = prompt('Result R (e.g. 1.5 or -1)?', '1.5');
+      if (r === null) return;
+      GFX.closeSignal(id, parseFloat(r) || 0);
+      loadSignals();
+    }
+    document.getElementById('postSignalModal')?.addEventListener('click', e => { if (e.target.id === 'postSignalModal') hidePostSignal(); });
+    loadSignals();
+
+
+    
+    async function loadSignals() {
+      const grid = document.getElementById('signalsGrid');
+      if (!grid) return;
+      let list = [];
+      try {
+        const res = await fetch('/api/signals');
+        if (res.ok) {
+          const data = await res.json();
+          list = data.signals || [];
+        }
+      } catch (e) {}
+      if (!list.length && typeof GFX.getSignals === 'function') {
+        list = GFX.getSignals() || [];
+      }
+      const activeCount = list.filter(s => s.status === 'active').length;
+      const countEl = document.getElementById('activeCount');
+      if (countEl) countEl.textContent = activeCount + ' Active';
+
+      if (!list.length) {
+        grid.innerHTML = '<div class="col-span-full text-center text-slate-500 py-8">No signals yet. Click <strong>Post Signal</strong>.</div>';
+        return;
+      }
+      grid.innerHTML = list.map(s => {
+        const isBuy = s.direction === 'BUY' || s.direction === 'LONG';
+        const border = s.status === 'active' ? (isBuy ? 'border-emerald-500/30' : 'border-red-500/30') : 'border-slate-700';
+        const dirClass = isBuy ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400';
+        const statusLabel = s.status === 'active' ? 'Active' : s.status === 'watch' ? 'Watch' : 'Closed';
+        const statusClass = s.status === 'active' ? 'text-emerald-400' : s.status === 'watch' ? 'text-amber-400' : 'text-slate-400';
+        const ago = timeAgo(s.createdAt);
+        const canTake = s.status === 'active' || s.status === 'watch';
+        return `
+          <div class="bg-slate-900 border ${border} rounded-2xl p-5 relative overflow-hidden">
+            <div class="flex justify-between items-start mb-3">
+              <div>
+                <span class="text-xs ${dirClass} px-2 py-0.5 rounded font-medium">${s.direction}</span>
+                <span class="text-sm font-bold ml-2">${s.symbol}</span>
+              </div>
+              <span class="text-[10px] text-slate-500">${ago}</span>
+            </div>
+            <div class="grid grid-cols-3 gap-2 text-xs mb-4">
+              <div><div class="text-slate-500">Entry</div><div class="font-semibold">${s.entry}</div></div>
+              <div><div class="text-slate-500">SL</div><div class="font-semibold text-red-400">${s.sl || '—'}</div></div>
+              <div><div class="text-slate-500">TP</div><div class="font-semibold text-emerald-400">${s.tp || '—'}</div></div>
+            </div>
+            <div class="flex justify-between items-center text-xs mb-3">
+              <span class="text-slate-500">RR 1:${s.rr || '—'} · Conf ${s.confidence || '—'}%</span>
+              <span class="${statusClass}">${statusLabel}</span>
+            </div>
+            ${canTake ? `<button onclick="takeSetup('${s.symbol}','${isBuy ? 'LONG' : 'SHORT'}','${s.entry}','${s.tp || s.entry}',${s.rr || 1})" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-sm font-medium py-2 rounded-xl transition">Take Signal → Journal</button>`
+              : `<button disabled class="w-full bg-slate-800/50 text-slate-500 text-sm font-medium py-2 rounded-xl cursor-not-allowed">Closed</button>`}
+            ${s.notes ? `<p class="text-[11px] text-slate-500 mt-2">${s.notes}</p>` : ''}
+          </div>`;
+      }).join('');
+    }
+    function timeAgo(iso) {
+      if (!iso) return '';
+      const m = Math.floor((Date.now() - new Date(iso).getTime()) / 60000);
+      if (m < 1) return 'just now';
+      if (m < 60) return m + 'm ago';
+      if (m < 1440) return Math.floor(m/60) + 'h ago';
+      return Math.floor(m/1440) + 'd ago';
+    }
+
+    function takeSetup(symbol, direction, entry, tp, rr) {
+      if (!confirm(`Add ${direction} ${symbol} to Journal?\nEntry ${entry} → TP ${tp} · RR ${rr}`)) return;
+      GFX.saveTrade({
+        date: new Date().toISOString().slice(0,10),
+        symbol, direction, entry, exit: tp, rr,
+        result: 'Win', notes: 'Taken from Live Signal'
+      });
+      alert('Saved to Journal. Open Performance to review.');
+      const s = GFX.getStats();
+      const line = document.getElementById('statLine');
+      if (line) line.textContent = `${s.total} trades · ${s.winRate}% WR · ${s.netR}R`;
+    }
+
+    function toggleMobileMenu() {
+      document.querySelector('aside').classList.toggle('mobile-open');
+    }
+
+    // Chart
+    function generateCandleData(basePrice, count = 120) {
+      const data = [];
+      let time = Math.floor(Date.now() / 1000) - count * 900;
+      let price = basePrice;
+      for (let i = 0; i < count; i++) {
+        const volatility = basePrice * 0.0015;
+        const open = price;
+        const change = (Math.random() - 0.48) * volatility * 2;
+        const close = open + change;
+        const high = Math.max(open, close) + Math.random() * volatility;
+        const low = Math.min(open, close) - Math.random() * volatility;
+        const dec = basePrice < 10 ? 5 : 2;
+        data.push({ time, open: +open.toFixed(dec), high: +high.toFixed(dec), low: +low.toFixed(dec), close: +close.toFixed(dec) });
+        price = close; time += 900;
+      }
+      return data;
+    }
+
+    async function fetchBinance(symbol = 'BTCUSDT', interval = '15m', limit = 150) {
+      try {
+        const res = await fetch(`https://api.binance.com/api/v3/klines?symbol=${symbol}&interval=${interval}&limit=${limit}`);
+        if (!res.ok) throw new Error('binance');
+        const raw = await res.json();
+        return raw.map(k => ({ time: Math.floor(k[0]/1000), open: +k[1], high: +k[2], low: +k[3], close: +k[4] }));
+      } catch { return null; }
+    }
+
+    async function fetchYahoo(symbol, interval = '15m', range = '5d') {
+      try {
+        const url = `https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?interval=${interval}&range=${range}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error('yahoo');
+        const json = await res.json();
+        const result = json.chart?.result?.[0];
+        if (!result) return null;
+        const ts = result.timestamp || [];
+        const q = result.indicators?.quote?.[0] || {};
+        const data = [];
+        for (let i = 0; i < ts.length; i++) {
+          if (q.open?.[i] == null) continue;
+          data.push({ time: ts[i], open: +q.open[i], high: +q.high[i], low: +q.low[i], close: +q.close[i] });
+        }
+        return data.length ? data : null;
+      } catch { return null; }
+    }
+
+    const chartContainer = document.getElementById('tvchart');
+    const chart = LightweightCharts.createChart(chartContainer, {
+      layout: { background: { type: 'solid', color: '#0f172a' }, textColor: '#94a3b8' },
+      grid: { vertLines: { color: '#1e293b' }, horzLines: { color: '#1e293b' } },
+      rightPriceScale: { borderColor: '#334155' },
+      timeScale: { borderColor: '#334155', timeVisible: true },
+      width: chartContainer.clientWidth,
+      height: 420,
+    });
+    const candleSeries = chart.addCandlestickSeries({
+      upColor: '#10b981', downColor: '#ef4444',
+      borderUpColor: '#10b981', borderDownColor: '#ef4444',
+      wickUpColor: '#10b981', wickDownColor: '#ef4444',
+    });
+    window._chartReady = true;
+
+    async function loadSymbol(symbol) {
+      document.getElementById('chartSymbol').textContent = symbol + ' · Loading...';
+      document.getElementById('contextSymbol').textContent = symbol;
+      let data = null, label = 'Sample';
+      try {
+        const res = await fetch(`/api/candles?symbol=${symbol}&interval=15m`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.candles?.length > 10) { data = json.candles; label = 'Live'; }
+        }
+      } catch {}
+      if (!data) {
+        if (symbol === 'BTCUSD') data = await fetchBinance('BTCUSDT');
+        else if (symbol === 'XAUUSD') { data = await fetchYahoo('GC=F'); if (!data) data = await fetchYahoo('XAUUSD=X'); }
+        else if (symbol === 'EURUSD') data = await fetchYahoo('EURUSD=X');
+        if (data?.length > 10) label = 'Live';
+      }
+      if (!data || data.length < 10) {
+        data = generateCandleData(symbol === 'BTCUSD' ? 95000 : symbol === 'EURUSD' ? 1.085 : 2650);
+        label = 'Sample';
+      }
+      document.getElementById('chartSymbol').textContent = symbol + ' · ' + label;
+      candleSeries.setData(data);
+      chart.timeScale().fitContent();
+    }
+
+    document.getElementById('symbolSelect').addEventListener('change', e => loadSymbol(e.target.value));
+    window.addEventListener('resize', () => chart.applyOptions({ width: chartContainer.clientWidth }));
+    loadSymbol('XAUUSD');
+    loadSignals();
+
+    document.querySelectorAll('.tf-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tf-btn').forEach(b => { b.classList.remove('bg-amber-600/30', 'text-amber-300'); b.classList.add('text-slate-400'); });
+        btn.classList.add('bg-amber-600/30', 'text-amber-300');
+        btn.classList.remove('text-slate-400');
+      });
+    });
+
+    const s = GFX.getStats();
+    const line = document.getElementById('statLine');
+    if (line) line.textContent = `${s.total} trades · ${s.winRate}% WR · ${s.netR}R`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+# Render Blueprint for Gold Fx Static Site
+# https://render.com/docs/blueprint-spec
+
+services:
+  - type: web
+    name: goldfx
+    runtime: static
+    buildCommand: echo "No build needed - pure static HTML"
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

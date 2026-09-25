@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gold Fx — Learning Vault</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    body { font-family: 'Inter', system-ui, sans-serif; }
+
+    @media (max-width: 768px) {
+      aside { transform: translateX(-100%); transition: transform 0.3s; }
+      aside.mobile-open { transform: translateX(0); }
+      main { margin-left: 0 !important; }
+      .mobile-menu-btn { display: flex !important; }
+    }
+    .mobile-menu-btn { display: none; }
+
+  </style>
+  <script src="app.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex">
+
+  <!-- SIDEBAR -->
+  <aside class="w-64 border-r border-slate-800 bg-slate-950 flex flex-col fixed h-full z-50">
+    <div class="p-5 border-b border-slate-800 flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center font-bold text-sm">G</div>
+      <span class="font-bold text-lg">Gold<span class="text-amber-400"> Fx</span></span>
+    </div>
+
+    <nav class="flex-1 p-4 space-y-1">
+      <a href="dashboard.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-th-large w-5 text-center"></i> Dashboard
+      </a>
+      <a href="dashboard.html#chart" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-chart-line w-5 text-center"></i> Context Map
+      </a>
+      <a href="dashboard.html#setups" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-bullseye w-5 text-center"></i> Active Setups
+      </a>
+      <a href="performance.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-history w-5 text-center"></i> Performance
+      </a>
+      <a href="learning.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-amber-600/20 text-amber-300 font-medium text-sm">
+        <i class="fas fa-book w-5 text-center"></i> Learning Vault
+      </a>
+      <a href="settings.html" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
+        <i class="fas fa-cog w-5 text-center"></i> Settings
+      </a>
+</nav>
+
+    <div class="p-4 border-t border-slate-800">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-full bg-slate-700 flex items-center justify-center text-sm font-medium">U</div>
+        <div>
+          <div class="text-sm font-medium" data-user-name>Trader</div>
+          <div class="text-xs text-slate-500" data-user-plan>Free Plan</div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="flex-1 ml-64">
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-40 px-8 py-4 flex items-center justify-between">
+      <div>
+        <h1 class="text-xl font-semibold">Learning Vault</h1>
+        <p class="text-xs text-slate-500">Setup Library • Concepts • Playbooks</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="text-xs px-3 py-1.5 rounded-lg bg-amber-600/20 text-amber-300">All</button>
+        <button class="text-xs px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800">Setups</button>
+        <button class="text-xs px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800">Concepts</button>
+        <button class="text-xs px-3 py-1.5 rounded-lg text-slate-400 hover:bg-slate-800">Psychology</button>
+      </div>
+    </header>
+
+    <div class="p-8">
+      <!-- Featured -->
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">Featured Playbooks</h2>
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-500/40 transition cursor-pointer group">
+            <div class="h-32 bg-gradient-to-br from-amber-900/50 to-yellow-900/30 flex items-center justify-center">
+              <i class="fas fa-layer-group text-4xl text-amber-400/60 group-hover:scale-110 transition"></i>
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-amber-400 mb-1">Core Concept</div>
+              <h3 class="font-semibold mb-2">Market Structure Mastery</h3>
+              <p class="text-sm text-slate-400">Higher TF structure, Break of Structure, Change of Character និងរបៀបប្រើវាជា Bias។</p>
+              <div class="mt-4 flex items-center gap-2 text-xs text-slate-500">
+                <i class="fas fa-clock"></i> 12 min read
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-500/40 transition cursor-pointer group">
+            <div class="h-32 bg-gradient-to-br from-emerald-900/40 to-teal-900/30 flex items-center justify-center">
+              <i class="fas fa-bullseye text-4xl text-emerald-400/60 group-hover:scale-110 transition"></i>
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-emerald-400 mb-1">Setup Playbook</div>
+              <h3 class="font-semibold mb-2">Order Block + Liquidity Sweep</h3>
+              <p class="text-sm text-slate-400">របៀបរក OB ដែលមាន Probability ខ្ពស់ និងប្រើ Liquidity Sweep ជា Confirmation។</p>
+              <div class="mt-4 flex items-center gap-2 text-xs text-slate-500">
+                <i class="fas fa-clock"></i> 18 min read
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden hover:border-amber-500/40 transition cursor-pointer group">
+            <div class="h-32 bg-gradient-to-br from-pink-900/40 to-rose-900/30 flex items-center justify-center">
+              <i class="fas fa-brain text-4xl text-pink-400/60 group-hover:scale-110 transition"></i>
+            </div>
+            <div class="p-5">
+              <div class="text-xs text-pink-400 mb-1">Psychology</div>
+              <h3 class="font-semibold mb-2">No FOMO Protocol</h3>
+              <p class="text-sm text-slate-400">ប្រព័ន្ធសម្រេចចិត្តដើម្បីជៀសវាង FOMO និង Revenge Trading។</p>
+              <div class="mt-4 flex items-center gap-2 text-xs text-slate-500">
+                <i class="fas fa-clock"></i> 9 min read
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Setup Library -->
+      <div class="mb-8">
+        <h2 class="text-lg font-semibold mb-4">Setup Library</h2>
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden">
+          <div class="divide-y divide-slate-800">
+            <div class="p-5 hover:bg-slate-800/40 transition cursor-pointer flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-emerald-500/15 flex items-center justify-center">
+                  <i class="fas fa-arrow-trend-up text-emerald-400"></i>
+                </div>
+                <div>
+                  <div class="font-medium">Bullish Order Block Continuation</div>
+                  <div class="text-xs text-slate-500 mt-0.5">XAUUSD • 15m / 1H • High Probability</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded">Win Rate 74%</span>
+                <i class="fas fa-chevron-right text-slate-600 text-sm"></i>
+              </div>
+            </div>
+
+            <div class="p-5 hover:bg-slate-800/40 transition cursor-pointer flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-red-500/15 flex items-center justify-center">
+                  <i class="fas fa-arrow-trend-down text-red-400"></i>
+                </div>
+                <div>
+                  <div class="font-medium">Bearish Liquidity Sweep + Rejection</div>
+                  <div class="text-xs text-slate-500 mt-0.5">BTCUSD • 1H / 4H • Medium-High</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded">Win Rate 69%</span>
+                <i class="fas fa-chevron-right text-slate-600 text-sm"></i>
+              </div>
+            </div>
+
+            <div class="p-5 hover:bg-slate-800/40 transition cursor-pointer flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center">
+                  <i class="fas fa-chart-line text-amber-400"></i>
+                </div>
+                <div>
+                  <div class="font-medium">Fair Value Gap Fill + Continuation</div>
+                  <div class="text-xs text-slate-500 mt-0.5">Multi-pair • 15m • High Probability</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs bg-emerald-500/15 text-emerald-400 px-2 py-0.5 rounded">Win Rate 71%</span>
+                <i class="fas fa-chevron-right text-slate-600 text-sm"></i>
+              </div>
+            </div>
+
+            <div class="p-5 hover:bg-slate-800/40 transition cursor-pointer flex items-center justify-between">
+              <div class="flex items-center gap-4">
+                <div class="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center">
+                  <i class="fas fa-bolt text-amber-400"></i>
+                </div>
+                <div>
+                  <div class="font-medium">News Spike Fade (Non-Farm / FOMC)</div>
+                  <div class="text-xs text-slate-500 mt-0.5">XAUUSD • 5m / 15m • Advanced</div>
+                </div>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs bg-amber-500/15 text-amber-400 px-2 py-0.5 rounded">Win Rate 61%</span>
+                <i class="fas fa-chevron-right text-slate-600 text-sm"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Concepts -->
+      <div>
+        <h2 class="text-lg font-semibold mb-4">Quick Concepts</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-1 text-amber-400 text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-medium mb-1">What is Context-First?</h4>
+                <p class="text-sm text-slate-400">មុននឹងមើល Signal ត្រូវយល់ Higher Timeframe Structure, Key Levels និង Bias ជាមុនសិន។</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-purple-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-2 text-purple-400 text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-medium mb-1">Invalidation vs Stop Loss</h4>
+                <p class="text-sm text-slate-400">Invalidation គឺជាកន្លែងដែល Bias បរាជ័យ។ Stop Loss គួរតែនៅក្រោយ Invalidation។</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-pink-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-3 text-pink-400 text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-medium mb-1">Risk First Rule</h4>
+                <p class="text-sm text-slate-400">កំណត់ Risk មុន Entry។ មិនដែល Risk ច្រើនជាង 1% ក្នុង Setup មួយ (លុះត្រាមាន Edge ខ្ពស់)។</p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 hover:border-slate-700 transition">
+            <div class="flex items-start gap-3">
+              <div class="w-8 h-8 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <i class="fas fa-4 text-emerald-400 text-sm"></i>
+              </div>
+              <div>
+                <h4 class="font-medium mb-1">Journal Every Trade</h4>
+                <p class="text-sm text-slate-400">រាល់ Trade ត្រូវមាន Note។ មើល Performance Page ដើម្បីកែលម្អ។</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    if (!GFX.requireAuth()) {}
+    GFX.updateUserUI();
+    document.querySelectorAll('[data-user-name]').forEach(el => {
+      el.parentElement.style.cursor = 'pointer';
+      el.parentElement.title = 'Click to logout';
+      el.parentElement.onclick = () => { if (confirm('Logout?')) GFX.logout(); };
+    });
+  </script>
+
+<script>
+    function toggleMobileMenu() {
+      document.querySelector('aside').classList.toggle('mobile-open');
+    }
+</script>
+</body>
+</html>
