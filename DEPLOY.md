@@ -1,45 +1,20 @@
-# Gold Fx — Deploy on Render (with Real Market Data)
+# Gold Fx — Deploy with server.py
 
-ឥឡូវនេះប្រើ **Web Service** (មាន Backend Proxy) ដើម្បីទាញ Gold / BTC / EUR ពិត 100%។
+## Local
+```bash
+pip install -r requirements.txt
+python server.py
+```
+Open http://localhost:3000
 
-## របៀប Deploy
+## Render Web Service
+- Runtime: **Python 3**
+- Build: `pip install -r requirements.txt`
+- Start: `gunicorn -b 0.0.0.0:$PORT server:app`
 
-### 1. Upload ទៅ GitHub
-- បង្កើត repo ថ្មី
-- Upload ឯកសារទាំងអស់ក្នុង folder នេះ
+## Flow
+1. Splash → Login (X-FLOMA style)
+2. Dashboard → Live Signals / AI Chart / AI Analysis / MT5
+3. Admin: `/admin.html` or Post Signal button
 
-### 2. បង្កើត Web Service នៅ Render
-1. ចូល https://dashboard.render.com
-2. New + → Web Service
-3. Connect GitHub repo
-4. កំណត់៖
-   - Name: goldfx
-   - Runtime: Node
-   - Build Command: npm install
-   - Start Command: npm start
-   - Instance Type: Free
-5. Create Web Service
-
-រង់ចាំ 2–3 នាទី → បាន URL ដូច
-https://goldfx.onrender.com
-
-### 3. សាកល្បង
-- បើក Website
-- Sign In → Dashboard
-- ប្តូរ Symbol: XAUUSD / BTCUSD / EURUSD
-- Chart គួរបង្ហាញ • Live
-
-## API
-- GET /api/candles?symbol=XAUUSD
-- GET /api/candles?symbol=BTCUSD
-- GET /api/health
-
-## Local Test
-npm install
-npm start
-# open http://localhost:3000
-
-## Free Plan
-Cold start ~30–60s នៅពេលគ្មានអ្នកប្រើយូរ
-
-© 2026 Gold Fx
+API: `/api/health` `/api/candles` `/api/signals`

@@ -1,29 +1,27 @@
-# Gold Fx — AI Office (Gold & FX)
+# Gold Fx — AI Office
+
+Gold & FX trading workspace (x-floma / BlueComp style).
+
+## Stack
+- **Frontend**: HTML + Tailwind + Lightweight Charts
+- **Backend**: **Python Flask** (`server.py`)
+  - Live market data (Binance + Yahoo)
+  - Signal feed API
+  - Static file server
+
+## Quick start
+```bash
+pip install -r requirements.txt
+python server.py
+```
+
+## Deploy
+See **DEPLOY.md** (Render: gunicorn)
 
 ## Features
-- **Live Signals** — Post signals (Admin / Post button), users Take → Journal
-- **AI Chart** — Live XAU / BTC / EUR via proxy
-- **AI Analysis** — Bias & structure notes
-- **MT5 · Copy** — Connect UI (bridge needs broker/VPS)
-- Performance Journal, Learning Vault, Settings
-
-## Signal Feed API
-- `GET /api/signals` — list signals
-- `POST /api/signals` — publish signal
-- `PATCH /api/signals/:id` — update
-- `DELETE /api/signals/:id` — delete
-
-Admin UI: `/admin.html`  
-Or use **Post Signal** on Dashboard.
-
-## Deploy (Render Web Service)
-```
-Build: npm install
-Start: npm start
-```
-
-## Local
-```
-npm install && npm start
-```
-Open http://localhost:3000
+- Live Signals (post + take to journal)
+- AI Chart (XAU / BTC / EUR)
+- AI Analysis
+- MT5 Copy UI
+- Performance Journal
+- Admin panel (`/admin.html`)

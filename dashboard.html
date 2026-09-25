@@ -30,16 +30,16 @@
   <!-- SIDEBAR — like BlueComp AI Office -->
   <aside class="w-64 border-r border-slate-800 bg-slate-950 flex flex-col fixed h-full z-50">
     <div class="p-5 border-b border-slate-800 flex items-center gap-3">
-      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center font-bold text-sm shadow-lg shadow-amber-500/20">G</div>
+      <img src="logo-icon.svg" alt="Gold Fx" class="w-8 h-8 rounded-lg shadow-lg shadow-orange-500/20">
       <div>
-        <span class="font-bold text-lg">Gold<span class="text-amber-400"> Fx</span></span>
+        <span class="font-bold text-lg">Gold<span class="text-orange-400"> Fx</span></span>
         <div class="text-[10px] text-slate-500 uppercase tracking-wider">AI Office</div>
       </div>
     </div>
 
     <nav class="flex-1 p-4 space-y-1">
       <p class="text-[10px] uppercase text-slate-600 font-semibold px-3 mb-2">Workspace</p>
-      <a href="#panel-signals" onclick="showPanel('signals')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-amber-600/20 text-amber-300 font-medium text-sm">
+      <a href="#panel-signals" onclick="showPanel('signals')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg bg-orange-600/20 text-orange-300 font-medium text-sm">
         <i class="fas fa-bolt w-5 text-center"></i> Live Signals
       </a>
       <a href="#panel-chart" onclick="showPanel('chart')" class="nav-item flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-400 hover:bg-slate-900 hover:text-white transition text-sm">
@@ -68,7 +68,7 @@
 
     <div class="p-4 border-t border-slate-800">
       <div class="flex items-center gap-3 cursor-pointer" title="Click to logout" onclick="if(confirm('Logout?')) GFX.logout()">
-        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center text-sm font-medium">U</div>
+        <div class="w-9 h-9 rounded-full bg-gradient-to-br from-orange-500 to-sky-500 flex items-center justify-center text-sm font-medium">U</div>
         <div>
           <div class="text-sm font-medium" data-user-name>Trader</div>
           <div class="text-xs text-slate-500" data-user-plan>Free Plan</div>
@@ -107,7 +107,7 @@
           </div>
           <div class="flex items-center gap-2">
             <span id="activeCount" class="text-xs bg-emerald-500/15 text-emerald-400 px-2.5 py-1 rounded-full">0 Active</span>
-            <button onclick="showPostSignal()" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition">
+            <button onclick="showPostSignal()" class="bg-orange-600 hover:bg-orange-500 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition">
               <i class="fas fa-plus mr-1"></i> Post Signal
             </button>
           </div>
@@ -147,7 +147,7 @@
                 <div><label class="text-xs text-slate-400">Confidence %</label><input id="sigConf" type="number" value="70" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm mt-1"></div>
               </div>
               <div><label class="text-xs text-slate-400">Notes</label><input id="sigNotes" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm mt-1" placeholder="Optional"></div>
-              <button onclick="submitSignal()" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-2.5 rounded-xl mt-2">Publish Signal</button>
+              <button onclick="submitSignal()" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-2.5 rounded-xl mt-2">Publish Signal</button>
             </div>
           </div>
         </div>
@@ -170,10 +170,10 @@
             </div>
           </div>
           <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 flex items-center gap-4">
-            <div class="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center"><i class="fas fa-newspaper text-amber-400"></i></div>
+            <div class="w-10 h-10 rounded-lg bg-orange-500/15 flex items-center justify-center"><i class="fas fa-newspaper text-orange-400"></i></div>
             <div>
               <div class="text-xs text-slate-500">News Impact</div>
-              <div class="font-semibold text-amber-400">Medium · Next 4h</div>
+              <div class="font-semibold text-orange-400">Medium · Next 4h</div>
             </div>
           </div>
         </div>
@@ -188,7 +188,7 @@
               <span class="text-xs text-slate-500" id="contextSymbol">XAUUSD</span>
             </div>
             <div class="flex gap-1">
-              <button class="tf-btn text-xs px-2.5 py-1 rounded bg-amber-600/30 text-amber-300">15m</button>
+              <button class="tf-btn text-xs px-2.5 py-1 rounded bg-orange-600/30 text-amber-300">15m</button>
               <button class="tf-btn text-xs px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">1H</button>
               <button class="tf-btn text-xs px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">4H</button>
               <button class="tf-btn text-xs px-2.5 py-1 rounded text-slate-400 hover:bg-slate-800">1D</button>
@@ -198,7 +198,7 @@
           <div class="px-5 py-3 border-t border-slate-800 grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
             <div><span class="text-slate-500">Indicators</span><div class="text-slate-300 mt-0.5">Structure · OB · FVG</div></div>
             <div><span class="text-slate-500">Session</span><div class="text-slate-300 mt-0.5">London / NY overlap</div></div>
-            <div><span class="text-slate-500">Source</span><div class="text-amber-400 mt-0.5">Live Proxy</div></div>
+            <div><span class="text-slate-500">Source</span><div class="text-orange-400 mt-0.5">Live Proxy</div></div>
             <div><span class="text-slate-500">Your Stats</span><div class="text-slate-300 mt-0.5" id="statLine">—</div></div>
           </div>
         </div>
@@ -215,7 +215,7 @@
         <div class="grid lg:grid-cols-2 gap-5">
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
             <div class="flex items-center gap-2 mb-4">
-              <i class="fas fa-brain text-amber-400"></i>
+              <i class="fas fa-brain text-orange-400"></i>
               <h3 class="font-semibold">Market Structure · XAUUSD</h3>
             </div>
             <p class="text-sm text-slate-300 leading-relaxed mb-4">
@@ -230,16 +230,16 @@
           </div>
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
             <div class="flex items-center gap-2 mb-4">
-              <i class="fas fa-lightbulb text-amber-400"></i>
+              <i class="fas fa-lightbulb text-orange-400"></i>
               <h3 class="font-semibold">Setup Quality Notes</h3>
             </div>
             <ul class="space-y-3 text-sm text-slate-300">
               <li class="flex gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> Order block aligned with HTF demand</li>
               <li class="flex gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> Clear RR ≥ 1:2 available</li>
               <li class="flex gap-2"><i class="fas fa-check text-emerald-400 mt-1 text-xs"></i> No high-impact news in next 2 hours</li>
-              <li class="flex gap-2"><i class="fas fa-exclamation text-amber-400 mt-1 text-xs"></i> Watch spread during London open</li>
+              <li class="flex gap-2"><i class="fas fa-exclamation text-orange-400 mt-1 text-xs"></i> Watch spread during London open</li>
             </ul>
-            <div class="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-xl text-xs text-amber-200/90">
+            <div class="mt-6 p-4 bg-orange-500/10 border border-orange-500/20 rounded-xl text-xs text-amber-200/90">
               AI summary is decision support only — always confirm structure and risk before entry.
             </div>
           </div>
@@ -255,7 +255,7 @@
           <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 mb-5">
             <div class="flex items-center gap-4 mb-6">
               <div class="w-14 h-14 rounded-xl bg-slate-800 flex items-center justify-center">
-                <i class="fas fa-server text-2xl text-amber-400"></i>
+                <i class="fas fa-server text-2xl text-orange-400"></i>
               </div>
               <div>
                 <div class="font-semibold">MT5 Account Link</div>
@@ -265,19 +265,19 @@
             <div class="space-y-4">
               <div>
                 <label class="block text-xs text-slate-400 mb-1.5">Server</label>
-                <input type="text" placeholder="e.g. ICMarkets-Demo" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                <input type="text" placeholder="e.g. ICMarkets-Demo" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-orange-500">
               </div>
               <div class="grid grid-cols-2 gap-3">
                 <div>
                   <label class="block text-xs text-slate-400 mb-1.5">Login</label>
-                  <input type="text" placeholder="Account number" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                  <input type="text" placeholder="Account number" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-orange-500">
                 </div>
                 <div>
                   <label class="block text-xs text-slate-400 mb-1.5">Password</label>
-                  <input type="password" placeholder="Investor password" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-amber-500">
+                  <input type="password" placeholder="Investor password" class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:border-orange-500">
                 </div>
               </div>
-              <button onclick="alert('MT5 bridge requires VPS + broker API. UI ready — backend integration comes next.')" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-semibold py-3 rounded-xl transition">
+              <button onclick="alert('MT5 bridge requires VPS + broker API. UI ready — backend integration comes next.')" class="w-full bg-orange-600 hover:bg-orange-500 text-white font-semibold py-3 rounded-xl transition">
                 Connect MT5
               </button>
             </div>
@@ -316,12 +316,12 @@
       if (el) el.classList.remove('hidden');
       document.getElementById('pageTitle').textContent = titles[name] || name;
       document.querySelectorAll('.nav-item').forEach(a => {
-        a.classList.remove('bg-amber-600/20', 'text-amber-300', 'font-medium');
+        a.classList.remove('bg-orange-600/20', 'text-amber-300', 'font-medium');
         a.classList.add('text-slate-400');
       });
       const active = document.querySelector(`a[href="#panel-${name}"]`);
       if (active) {
-        active.classList.add('bg-amber-600/20', 'text-amber-300', 'font-medium');
+        active.classList.add('bg-orange-600/20', 'text-amber-300', 'font-medium');
         active.classList.remove('text-slate-400');
       }
       if (name === 'chart' && window._chartReady) {
@@ -460,7 +460,7 @@
         const border = s.status === 'active' ? (isBuy ? 'border-emerald-500/30' : 'border-red-500/30') : 'border-slate-700';
         const dirClass = isBuy ? 'bg-emerald-500/20 text-emerald-400' : 'bg-red-500/20 text-red-400';
         const statusLabel = s.status === 'active' ? 'Active' : s.status === 'watch' ? 'Watch' : 'Closed';
-        const statusClass = s.status === 'active' ? 'text-emerald-400' : s.status === 'watch' ? 'text-amber-400' : 'text-slate-400';
+        const statusClass = s.status === 'active' ? 'text-emerald-400' : s.status === 'watch' ? 'text-orange-400' : 'text-slate-400';
         const ago = timeAgo(s.createdAt);
         const canTake = s.status === 'active' || s.status === 'watch';
         return `
@@ -609,8 +609,8 @@
 
     document.querySelectorAll('.tf-btn').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.tf-btn').forEach(b => { b.classList.remove('bg-amber-600/30', 'text-amber-300'); b.classList.add('text-slate-400'); });
-        btn.classList.add('bg-amber-600/30', 'text-amber-300');
+        document.querySelectorAll('.tf-btn').forEach(b => { b.classList.remove('bg-orange-600/30', 'text-amber-300'); b.classList.add('text-slate-400'); });
+        btn.classList.add('bg-orange-600/30', 'text-amber-300');
         btn.classList.remove('text-slate-400');
       });
     });
